@@ -76,5 +76,32 @@ bool AtualizarPokemon(Pokemon p) {
 }
 
 bool ApagarPokemonPeloCodigo(int codigo) {
-	
+	int indice = -1;
+    
+    for (int i = 0; i < qtdPokemon; i++) {
+        if (arrayPokemon[i].codigo == codigo) {
+            indice = i;
+            break;
+        }
+    }
+    
+    if (indice == -1) {
+        return false;
+    }
+
+    for (int i = indice; i < qtdPokemon - 1; i++) {
+        arrayPokemon[i] = arrayPokemon[i + 1];
+        if(arrayPokemon[i].codigo != 0)
+        arrayPokemon[i].codigo--;
+    }
+
+    qtdPokemon--;
+
+    if (qtdPokemon < tamArrayPokemon / 2 && tamArrayPokemon > 3) {
+        tamArrayPokemon /= 2;
+        Pokemon* temp = (Pokemon*)realloc(arrayPokemon, tamArrayPokemon * sizeof(Pokemon));
+        if (temp != NULL) {
+            arrayPokemon = temp;
+        }
+    }
 }

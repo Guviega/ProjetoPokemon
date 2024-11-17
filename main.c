@@ -190,20 +190,35 @@ void menuPokemons() {
             case 3:
                 //PESQUISAR POKEMON PELO NOME.
                 clear();
+                int encontrado = 0;
                 printf("Qual o nome do pokemon?");
                 char *nome = malloc(30);
                 scanf("%s", nome);
                 for(i = 0; i < QuantidadePokemon(); i++) {
                 	if(strcmp(nome, listaPokemon()[i].nome) == 0) {
                 		Pokemon p = listaPokemon()[i];
+                		clear();
                 		printf("Pokemon encontrado!\n");
                 		printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p.nome, p.codigo, p.vida, p.ataque, p.defesa, p.dono, ObterTreinadorPeloCodigo(p.dono)->nome);
-                		break;
+                		encontrado = 1;
+						break;
 					}
 				}
+				if(encontrado == 0)
+					printf("Pokemon nao encontrado.\n");
+				free(nome);
                 break;
             case 4:
-                printf("Excluindo Pokemon...\n");
+            	//APAGAR POKEMON
+            	clear();
+                printf("Qual pokemon deseja excluir? (codigo)\n");
+                for(i = 0; i < QuantidadePokemon(); i++) {
+                	Pokemon p = listaPokemon()[i];
+                	if(p.codigo != 0) 
+                	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p.nome, p.codigo, p.vida, p.ataque, p.defesa, p.dono, ObterTreinadorPeloCodigo(p.dono)->nome);
+				}
+                scanf("%d", &o);
+                ApagarPokemonPeloCodigo(o);
                 break;
             default:
                 printf("Opcao invalida! Tente novamente.\n");
