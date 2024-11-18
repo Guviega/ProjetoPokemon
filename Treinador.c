@@ -24,6 +24,8 @@ bool InicializarTreinadores()
         strcpy(arrayTreinador[i].nome, "");
         arrayTreinador[i].bonusAtq = 0;
         arrayTreinador[i].bonusDef = 0;
+        arrayTreinador[i].vitorias = 0;
+        arrayTreinador[i].derrotas = 0;
     }
     
     arrayTreinador[0].codigo = 1;

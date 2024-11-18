@@ -3,6 +3,7 @@
 #include "Treinador.h"
 #include "Pokemon.h"
 #include "Ginasio.h"
+#include "Batalha.h"
 
 void menuTreinadores();
 void menuPokemons();
@@ -15,6 +16,7 @@ int main(int argc, char *argv[]) {
 	InicializarTreinadores();
 	InicializarPokemons();
 	InicializarGinasios();
+	InicializarBatalhas();
 	
 	//printf("Quantidade de treinadores: %d", qtdTreinadores);
 	//printf("Quantidade de treinadores: %d", QuantidadeTreinadores());
@@ -66,6 +68,8 @@ int main(int argc, char *argv[]) {
 
     EncerraTreinadores();
     EncerraPokemons();
+    EncerrarGinasios();
+    EncerrarBatalhas();
     return 0;
 }	
 
@@ -321,6 +325,15 @@ void menuBatalhas() {
                 break;
             case 1:
                 printf("Listando batalhas do treinador...\n");
+                printf("Qual treinador deseja ver as batalhas? (codigo)\n");
+                int i;
+                for(i = 0; i < QuantidadeTreinadores(); i++) {
+                	Treinador t = listaTreinadores()[i];
+                	if(t.codigo != 0) 
+                	printf("Treinador: %s, Cod: %d, Bonus ATQ: %.2f, Bonus DEF: %.2f\n", t.nome, t.codigo, t.bonusAtq, t.bonusDef);
+				}
+                scanf("%d", &o);
+                
                 break;
             case 2:
                 printf("Listando batalhas do ginasio...\n");

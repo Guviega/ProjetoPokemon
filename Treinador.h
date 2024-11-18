@@ -4,6 +4,7 @@ struct treinador{
 	int codigo;
 	char nome[30];
 	float bonusAtq, bonusDef;
+	int vitorias, derrotas;
 };
 
 typedef struct treinador Treinador;
