@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "Treinador.h"
 #include "Pokemon.h"
+#include "Ginasio.h"
 
 void menuTreinadores();
 void menuPokemons();
@@ -13,6 +14,7 @@ int o;
 int main(int argc, char *argv[]) {
 	InicializarTreinadores();
 	InicializarPokemons();
+	InicializarGinasios();
 	
 	//printf("Quantidade de treinadores: %d", qtdTreinadores);
 	//printf("Quantidade de treinadores: %d", QuantidadeTreinadores());
@@ -242,16 +244,59 @@ void menuGinasios() {
             case 0:
                 break;
             case 1:
-                printf("Listando Ginasios...\n");
+                //LISTAR GINASIOS
+                clear();
+                int i;
+                for(i = 0; i < QuantidadeGinasios(); i++) {
+                	Ginasio g = listaGinasios()[i];
+                	if(g.codigo != 0) 
+                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g.nome, g.codigo, g.capacidade, g.bairro);
+				}
                 break;
             case 2:
-                printf("Cadastrando Ginasio...\n");
+            	clear();
+                Ginasio g;
+                printf("Nome:\n");
+                scanf("%s", g.nome);
+                printf("Bairro:\n");
+                scanf("%s", g.bairro);
+                printf("Capacidade:\n");
+                scanf("%d", &g.capacidade);
+                SalvarGinasio(g);
                 break;
             case 3:
-                printf("Pesquisando Ginasio...\n");
+            	//PESQUISAR GINASIO
+                clear();
+                int encontrado = 0;
+                printf("Qual o bairro do ginasio?\n");
+                char *bairro = malloc(30);
+                scanf("%s", bairro);
+                for(i = 0; i < QuantidadeGinasios(); i++) {
+                	if(strcmp(bairro, listaGinasios()[i].bairro) == 0) {
+                		Ginasio g = listaGinasios()[i];
+                		clear();
+                		printf("Ginasio no bairro %s encontrado!\n", bairro);
+                		printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g.nome, g.codigo, g.capacidade, g.bairro);
+                		encontrado = 1;
+						break;
+					}
+				}
+				if(encontrado == 0)
+					printf("Ginasio nao encontrado neste bairro.\n");
+				free(bairro);
+                break;
                 break;
             case 4:
-                printf("Excluindo Ginasio...\n");
+                //APAGAR GINASIO
+            	clear();
+                printf("Qual ginasio deseja excluir? (codigo)\n");
+                for(i = 0; i < QuantidadeGinasios(); i++) {
+                	Ginasio g = listaGinasios()[i];
+                	if(g.codigo != 0)
+                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g.nome, g.codigo, g.capacidade, g.bairro);
+                }
+                scanf("%d", &o);
+                ApagarGinasioPeloCodigo(o);
                 break;
             default:
                 printf("Opcao invalida! Tente novamente.\n");

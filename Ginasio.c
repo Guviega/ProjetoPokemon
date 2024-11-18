@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "Ginasio.h"
 
-#define INICIAL_QTD_GINASIOS 6;
+#define INICIAL_QTD_GINASIOS 6
 
 int qtdGinasios = INICIAL_QTD_GINASIOS;
 int tamArrayGinasios = INICIAL_QTD_GINASIOS;
@@ -67,13 +67,40 @@ bool SalvarGinasio(Ginasio g) {
 
 
 int QuantidadeGinasios() {
-	
+	return qtdGinasios;
 }
 
 Ginasio* ObterGinasioPeloCodigo(int codigo) {
-	
+	return &arrayGinasio[codigo-1];
 }
 
 bool ApagarGinasioPeloCodigo(int codigo) {
-	
+	int indice = -1;
+    
+    for (int i = 0; i < qtdGinasios; i++) {
+        if (arrayGinasio[i].codigo == codigo) {
+            indice = i;
+            break;
+        }
+    }
+    
+    if (indice == -1) {
+        return false;
+    }
+
+    for (int i = indice; i < qtdGinasios - 1; i++) {
+        arrayGinasio[i] = arrayGinasio[i + 1];
+        if(arrayGinasio[i].codigo != 0)
+        arrayGinasio[i].codigo--;
+    }
+
+    qtdGinasios--;
+
+    if (qtdGinasios < tamArrayGinasios / 2 && tamArrayGinasios > 3) {
+        tamArrayGinasios /= 2;
+        Ginasio* temp = (Ginasio*)realloc(arrayGinasio, tamArrayGinasios * sizeof(Ginasio));
+        if (temp != NULL) {
+            arrayGinasio = temp;
+        }
+    }
 }

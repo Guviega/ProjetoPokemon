@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "Pokemon.h"
 
-#define INICIAL_QTD_POKEMONS 6;
+#define INICIAL_QTD_POKEMONS 6
 
 int qtdPokemon = INICIAL_QTD_POKEMONS;;
 int tamArrayPokemon = INICIAL_QTD_POKEMONS;

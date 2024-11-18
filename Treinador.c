@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "Treinador.h"
 
-#define INICIAL_QTD_TREINADORES 6;
+#define INICIAL_QTD_TREINADORES 6
 
 int qtdTreinadores = INICIAL_QTD_TREINADORES;
 int tamArrayTreinadores = INICIAL_QTD_TREINADORES;
