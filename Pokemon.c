@@ -68,12 +68,9 @@ int QuantidadePokemon() {
 }
 
 Pokemon* ObterPokemonPeloCodigo(int codigo) {
-	
+	return &arrayPokemon[codigo-1];
 }
 
-bool AtualizarPokemon(Pokemon p) {
-	
-}
 
 bool ApagarPokemonPeloCodigo(int codigo) {
 	int indice = -1;

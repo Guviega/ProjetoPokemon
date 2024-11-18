@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o Treinador.o Pokemon.o
-LINKOBJ  = main.o Treinador.o Pokemon.o
+OBJ      = main.o Treinador.o Pokemon.o Ginasio.o
+LINKOBJ  = main.o Treinador.o Pokemon.o Ginasio.o
 LIBS     = -L"D:/Programas/Dev-Cpp/MinGW64/lib" -L"D:/Programas/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"D:/Programas/Dev-Cpp/MinGW64/include" -I"D:/Programas/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Programas/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"D:/Programas/Dev-Cpp/MinGW64/include" -I"D:/Programas/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Programas/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Programas/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -32,3 +32,6 @@ Treinador.o: Treinador.c
 
 Pokemon.o: Pokemon.c
 	$(CC) -c Pokemon.c -o Pokemon.o $(CFLAGS)
+
+Ginasio.o: Ginasio.c
+	$(CC) -c Ginasio.c -o Ginasio.o $(CFLAGS)
