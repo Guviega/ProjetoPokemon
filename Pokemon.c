@@ -28,8 +28,15 @@ bool InicializarPokemons() {
     strcpy(arrayPokemon[0].nome, "Pichaku");
     arrayPokemon[0].dono = 1;
     arrayPokemon[0].vida = 100;
-    arrayPokemon[0].vida = 100;
-    arrayPokemon[0].vida = 100;
+    arrayPokemon[0].ataque = 20;
+    arrayPokemon[0].defesa = 20;
+    
+    arrayPokemon[1].codigo = 2;
+    strcpy(arrayPokemon[1].nome, "Bulbassauro");
+    arrayPokemon[1].dono = 2;
+    arrayPokemon[1].vida = 100;
+    arrayPokemon[1].ataque = 15;
+    arrayPokemon[1].defesa = 20;
 }
 
 bool EncerraPokemons() {	

@@ -1,19 +1,27 @@
 #include <stdbool.h>
+#include "Treinador.h"
+#include "Pokemon.h"
+#include "Ginasio.h"
 
-struct bataha{
+struct batalha{
 	int codigo;
-	char nome[30], bairro[30];
-	int capacidade;
+	Pokemon p1, p2, vencedor;
+	Ginasio g;
 };
 
 typedef struct batalha Batalha;
 
 bool InicializarBatalhas();
 bool EncerrarBatalhas();
-Ginasio* listaGinasios();
-bool SalvarGinasio(Ginasio g);
-int QuantidadeGinasios();
-Ginasio* ObterGinasioPeloCodigo(int codigo);
-bool ApagarGinasioPeloCodigo(int codigo);
+Batalha* listaBatalhas();
+Pokemon* RealizarBatalha(Pokemon p1, Pokemon p2, Ginasio g);
+float getAtqTotalP1();
+float getDefTotalP2();
+float getAtqTotalP1();
+float getDefTotalP2();
+int QuantidadeBatalhas();
+int BatalhasDoTreinador(int codigo);
+int BatalhasDoGinasio(int codigo);
+Batalha* ObterBatalhaPeloCodigo(int codigo);
 
 
