@@ -40,7 +40,9 @@ bool EncerrarGinasios() {
 
 
 Ginasio* listaGinasios() {
-	return arrayGinasio;
+	Ginasio* temp = malloc(sizeof(Ginasio));
+	temp = arrayGinasio;
+	return temp;
 }
 
 
@@ -59,7 +61,9 @@ bool SalvarGinasio(Ginasio g) {
 		}
 		if(i == qtdGinasios-1) {
 			qtdGinasios++;
-			arrayGinasio = realloc(arrayGinasio, qtdGinasios*sizeof(Ginasio)); 
+			Ginasio* temp = realloc(arrayGinasio, qtdGinasios*sizeof(Ginasio));
+			if(temp != NULL)
+			arrayGinasio = temp; 
 			arrayGinasio[qtdGinasios-1].codigo = 0;
 		}
 	}
@@ -71,7 +75,9 @@ int QuantidadeGinasios() {
 }
 
 Ginasio* ObterGinasioPeloCodigo(int codigo) {
-	return &arrayGinasio[codigo-1];
+	Ginasio* temp = malloc(sizeof(Ginasio));
+	*temp = arrayGinasio[codigo-1];
+	return temp;
 }
 
 bool ApagarGinasioPeloCodigo(int codigo) {

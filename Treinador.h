@@ -15,6 +15,7 @@ Treinador* listaTreinadores();
 bool SalvarTreinador(Treinador t);
 int QuantidadeTreinadores();
 Treinador* ObterTreinadorPeloCodigo(int codigo);
+bool AtualizarTreinador(Treinador t);
 bool ApagarTreinadorPeloCodigo(int codigo);
 
 

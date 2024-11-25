@@ -64,7 +64,10 @@ bool SalvarTreinador(Treinador t)
 		}
 		if(i == qtdTreinadores-1) {
 			qtdTreinadores++;
-			arrayTreinador = realloc(arrayTreinador, qtdTreinadores*sizeof(Treinador)); 
+			Treinador* temp = realloc(arrayTreinador, qtdTreinadores*sizeof(Treinador)); 
+			if(temp != NULL) {
+				arrayTreinador = temp;
+			}
 			arrayTreinador[qtdTreinadores-1].codigo = 0;
 		}
 	}
@@ -74,9 +77,10 @@ int QuantidadeTreinadores(){
 	return qtdTreinadores;
 }
 
-Treinador* ObterTreinadorPeloCodigo(int codigo)
-{
-	return &arrayTreinador[codigo - 1];
+Treinador* ObterTreinadorPeloCodigo(int codigo) {
+	Treinador* temp = malloc(sizeof(Treinador));
+	*temp = arrayTreinador[codigo -1];
+	return temp;
 }
 
 bool AtualizarTreinador(Treinador t)
@@ -85,6 +89,8 @@ bool AtualizarTreinador(Treinador t)
 	strcpy(at->nome, t.nome);
 	at->bonusAtq = t.bonusAtq;
 	at->bonusDef = t.bonusDef;
+	at->vitorias = t.vitorias;
+	at->derrotas = t.derrotas;
 }
 
 bool ApagarTreinadorPeloCodigo(int codigo)

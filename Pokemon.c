@@ -4,7 +4,7 @@
 
 #define INICIAL_QTD_POKEMONS 6
 
-int qtdPokemon = INICIAL_QTD_POKEMONS;;
+int qtdPokemon = INICIAL_QTD_POKEMONS;
 int tamArrayPokemon = INICIAL_QTD_POKEMONS;
 Pokemon* arrayPokemon;
 
@@ -44,7 +44,8 @@ bool EncerraPokemons() {
 }
 
 Pokemon* listaPokemon() {
-	return arrayPokemon;
+	Pokemon* temp = arrayPokemon;
+	return temp;
 }
 
 bool SalvarPokemon(Pokemon p) {
@@ -64,7 +65,12 @@ bool SalvarPokemon(Pokemon p) {
 		}
 		if(i == qtdPokemon-1) {
 			qtdPokemon++;
-			arrayPokemon = realloc(arrayPokemon, qtdPokemon*sizeof(Pokemon)); 
+			Pokemon* temp;
+			temp = realloc(arrayPokemon, qtdPokemon*sizeof(Pokemon)); 
+			if (temp!=NULL)
+				arrayPokemon = temp;
+			else
+				qtdPokemon--;
 			arrayPokemon[qtdPokemon-1].codigo = 0;
 		}
 	}
@@ -75,7 +81,9 @@ int QuantidadePokemon() {
 }
 
 Pokemon* ObterPokemonPeloCodigo(int codigo) {
-	return &arrayPokemon[codigo-1];
+	Pokemon* temp = malloc(sizeof(Pokemon));
+	*temp = arrayPokemon[codigo-1];
+	return temp;
 }
 
 

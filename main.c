@@ -78,51 +78,56 @@ void menuTreinadores() {
                 clear();
                 int i;
                 for(i = 0; i < QuantidadeTreinadores(); i++) {
-                	Treinador t = listaTreinadores()[i];
-                	if(t.codigo != 0) 
-                	printf("Treinador: %s, Cod: %d, Bonus ATQ: %.2f, Bonus DEF: %.2f\n", t.nome, t.codigo, t.bonusAtq, t.bonusDef);
+                	Treinador* t = ObterTreinadorPeloCodigo(i+1);
+                	if(t->codigo != 0) 
+                	printf("Treinador: %s, Cod: %d, Bonus ATQ: %.2f, Bonus DEF: %.2f\n", t->nome, t->codigo, t->bonusAtq, t->bonusDef);
+					free(t);
 				}
                 break;
             case 2:
+            	//CADASTRO TREINADOR
             	clear();
-                printf("Cadastrando treinador...\n");
-                Treinador t;
-                t.codigo = 0;
+                Treinador* t = malloc(sizeof(Treinador));
+                t->codigo = 0;
                 
                 printf("Nome:\n");
-                scanf("%s", &t.nome);
+                scanf("%s", &t->nome);
                 printf("Bonus ATQ:\n");
-                scanf("%f", &t.bonusAtq);
+                scanf("%f", &t->bonusAtq);
                 printf("Bonus DEF:\n");
-                scanf("%f", &t.bonusDef);
+                scanf("%f", &t->bonusDef);
                 
-                SalvarTreinador(t);
+                SalvarTreinador(*t);
+                free(t);
                 break;
             case 3:
             	//ATUALIZAR TREINADOR
             	clear();
             	printf("Qual treinador deseja atualizar? (codigo)\n");
                 for(i = 0; i < QuantidadeTreinadores(); i++) {
-                	Treinador t = listaTreinadores()[i];
-                	if(t.codigo != 0) 
-                	printf("Treinador: %s, Cod: %d, Bonus ATQ: %.2f, Bonus DEF: %.2f\n", t.nome, t.codigo, t.bonusAtq, t.bonusDef);
+                	Treinador* t = ObterTreinadorPeloCodigo(i+1);
+                	if(t->codigo != 0) 
+                	printf("Treinador: %s, Cod: %d, Bonus ATQ: %.2f, Bonus DEF: %.2f\n", t->nome, t->codigo, t->bonusAtq, t->bonusDef);
+					free(t);
 				}
 				scanf("%d", &o);
-                Treinador tr = listaTreinadores()[o-1];
+                Treinador *tr = ObterTreinadorPeloCodigo(o);
                 printf("Nome:\n");
-                scanf("%s", &tr.nome);
+                scanf("%s", &tr->nome);
                 printf("Bonus ATQ:\n");
-                scanf("%f", &tr.bonusAtq);
+                scanf("%f", &tr->bonusAtq);
                 printf("Bonus DEF:\n");
-                scanf("%f", &tr.bonusDef);
-                AtualizarTreinador(tr);
+                scanf("%f", &tr->bonusDef);
+                AtualizarTreinador(*tr);
+                free(tr);
                 break;
             case 4:
                 printf("Qual treinador deseja excluir? (codigo)\n");
                 for(i = 0; i < QuantidadeTreinadores(); i++) {
-                	Treinador t = listaTreinadores()[i];
-                	if(t.codigo != 0) 
-                	printf("Treinador: %s, Cod: %d, Bonus ATQ: %.2f, Bonus DEF: %.2f\n", t.nome, t.codigo, t.bonusAtq, t.bonusDef);
+                	Treinador* t = ObterTreinadorPeloCodigo(i+1);
+                	if(t->codigo != 0) 
+                	printf("Treinador: %s, Cod: %d, Bonus ATQ: %.2f, Bonus DEF: %.2f\n", t->nome, t->codigo, t->bonusAtq, t->bonusDef);
+					free(t);
 				}
                 scanf("%d", &o);
                 ApagarTreinadorPeloCodigo(o);
@@ -153,41 +158,45 @@ void menuPokemons() {
                 clear();
                 int i;
                 for(i = 0; i < QuantidadePokemon(); i++) {
-                	Pokemon p = listaPokemon()[i];
-                	if(p.codigo != 0) 
-                	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p.nome, p.codigo, p.vida, p.ataque, p.defesa, p.dono, ObterTreinadorPeloCodigo(p.dono)->nome);
+                	Pokemon* p = ObterPokemonPeloCodigo(i+1);
+                	if(p->codigo != 0) 
+                	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p->nome, p->codigo, p->vida, p->ataque, p->defesa, p->dono, ObterTreinadorPeloCodigo(p->dono)->nome);
+					free(p);
 				}
                 break;
             case 2:
                 clear();
-                Pokemon p;
+                Pokemon* p = malloc(sizeof(Pokemon));
                 printf("Nome:\n");
-                scanf("%s", &p.nome);
+                scanf("%s", &p->nome);
 				printf("Codigo do dono?:\n");
 				for(i = 0; i < QuantidadeTreinadores(); i++) {
-                	Treinador t = listaTreinadores()[i];
-                	if(t.codigo != 0) 
-                	printf("Treinador: %s, Cod: %d\n", t.nome, t.codigo);
+                	Treinador* t = ObterTreinadorPeloCodigo(i+1);
+                	if(t->codigo != 0) 
+                	printf("Treinador: %s, Cod: %d\n", t->nome, t->codigo);
+                	free(t);
 				}
-                scanf("%d", &p.dono);
+                scanf("%d", &p->dono);
 				printf("Vida:\n");
-                scanf("%f", &p.vida);
+                scanf("%f", &p->vida);
 				printf("Ataque:\n");
-                scanf("%f", &p.ataque);
+                scanf("%f", &p->ataque);
 				printf("Defesa:\n");
-                scanf("%f", &p.defesa);
-        		SalvarPokemon(p);
+                scanf("%f", &p->defesa);
+        		SalvarPokemon(*p);
+        		free(p);
                 break;
             case 3:
                 //PESQUISAR POKEMON PELO NOME.
                 clear();
                 int encontrado = 0;
                 printf("Qual o nome do pokemon?");
-                char *nome = malloc(30);
+                char* nome = malloc(30);
                 scanf("%s", nome);
+                Pokemon* array = listaPokemon();
                 for(i = 0; i < QuantidadePokemon(); i++) {
-                	if(strcmp(nome, listaPokemon()[i].nome) == 0) {
-                		Pokemon p = listaPokemon()[i];
+                	if(strcmp(nome, array[i].nome) == 0) {
+                		Pokemon p = array[i];
                 		clear();
                 		printf("Pokemon encontrado!\n");
                 		printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p.nome, p.codigo, p.vida, p.ataque, p.defesa, p.dono, ObterTreinadorPeloCodigo(p.dono)->nome);
@@ -203,11 +212,14 @@ void menuPokemons() {
             	//APAGAR POKEMON
             	clear();
                 printf("Qual pokemon deseja excluir? (codigo)\n");
+                array = listaPokemon();
                 for(i = 0; i < QuantidadePokemon(); i++) {
-                	Pokemon p = listaPokemon()[i];
-                	if(p.codigo != 0) 
-                	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p.nome, p.codigo, p.vida, p.ataque, p.defesa, p.dono, ObterTreinadorPeloCodigo(p.dono)->nome);
+                	Pokemon *p = ObterPokemonPeloCodigo(i+1);
+                	if(p->codigo != 0) 
+                	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p->nome, p->codigo, p->vida, p->ataque, p->defesa, p->dono, ObterTreinadorPeloCodigo(p->dono)->nome);
+					free(p);
 				}
+				free(array);
                 scanf("%d", &o);
                 ApagarPokemonPeloCodigo(o);
                 break;
@@ -237,21 +249,23 @@ void menuGinasios() {
                 clear();
                 int i;
                 for(i = 0; i < QuantidadeGinasios(); i++) {
-                	Ginasio g = listaGinasios()[i];
-                	if(g.codigo != 0) 
-                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g.nome, g.codigo, g.capacidade, g.bairro);
+                	Ginasio *g = ObterGinasioPeloCodigo(i+1);
+                	if(g->codigo != 0) 
+                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g->nome, g->codigo, g->capacidade, g->bairro);
+                	free(g);
 				}
                 break;
             case 2:
             	clear();
-                Ginasio g;
+                Ginasio* g = malloc(sizeof(Ginasio));
                 printf("Nome:\n");
-                scanf("%s", g.nome);
+                scanf("%s", &g->nome);
                 printf("Bairro:\n");
-                scanf("%s", g.bairro);
+                scanf("%s", &g->bairro);
                 printf("Capacidade:\n");
-                scanf("%d", &g.capacidade);
-                SalvarGinasio(g);
+                scanf("%d", &g->capacidade);
+                SalvarGinasio(*g);
+                free(g);
                 break;
             case 3:
             	//PESQUISAR GINASIO
@@ -260,12 +274,13 @@ void menuGinasios() {
                 printf("Qual o bairro do ginasio?\n");
                 char *bairro = malloc(30);
                 scanf("%s", bairro);
+                Ginasio* array = listaGinasios();
                 for(i = 0; i < QuantidadeGinasios(); i++) {
-                	if(strcmp(bairro, listaGinasios()[i].bairro) == 0) {
-                		Ginasio g = listaGinasios()[i];
+                	if(strcmp(bairro, array[i].bairro) == 0) {
+                		Ginasio *g = ObterGinasioPeloCodigo(i+1);
                 		clear();
                 		printf("Ginasio no bairro %s encontrado!\n", bairro);
-                		printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g.nome, g.codigo, g.capacidade, g.bairro);
+                		printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g->nome, g->codigo, g->capacidade, g->bairro);
                 		encontrado = 1;
 						break;
 					}
@@ -273,17 +288,18 @@ void menuGinasios() {
 				if(encontrado == 0)
 					printf("Ginasio nao encontrado neste bairro.\n");
 				free(bairro);
-                break;
+				free(array);
                 break;
             case 4:
                 //APAGAR GINASIO
             	clear();
                 printf("Qual ginasio deseja excluir? (codigo)\n");
                 for(i = 0; i < QuantidadeGinasios(); i++) {
-                	Ginasio g = listaGinasios()[i];
-                	if(g.codigo != 0)
-                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g.nome, g.codigo, g.capacidade, g.bairro);
-                }
+                	Ginasio *g = ObterGinasioPeloCodigo(i+1);
+                	if(g->codigo != 0) 
+                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g->nome, g->codigo, g->capacidade, g->bairro);
+                	free(g);
+				}
                 scanf("%d", &o);
                 ApagarGinasioPeloCodigo(o);
                 break;
@@ -313,9 +329,10 @@ void menuBatalhas() {
                 printf("Qual treinador deseja ver as batalhas? (codigo)\n");
                 int i;
                 for(i = 0; i < QuantidadeTreinadores(); i++) {
-                	Treinador t = listaTreinadores()[i];
-                	if(t.codigo != 0) 
-                	printf("Treinador: %s, Cod: %d, Bonus ATQ: %.2f, Bonus DEF: %.2f\n", t.nome, t.codigo, t.bonusAtq, t.bonusDef);
+                	Treinador* t = ObterTreinadorPeloCodigo(i+1);
+                	if(t->codigo != 0) 
+                	printf("Treinador: %s, Cod: %d\n", t->nome, t->codigo);
+                	free(t);
 				}
                 scanf("%d", &o);
                 for(i = 0; i < QuantidadeBatalhas(); i++) {
@@ -328,51 +345,56 @@ void menuBatalhas() {
             	clear();
                 printf("Qual ginasio deseja ver as batalhas? (codigo)\n");
                 for(i = 0; i < QuantidadeGinasios(); i++) {
-                	Ginasio g = listaGinasios()[i];
-                	if(g.codigo != 0)
-                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g.nome, g.codigo, g.capacidade, g.bairro);
+                	Ginasio *g = ObterGinasioPeloCodigo(i+1);
+                	if(g->codigo != 0)
+                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g->nome, g->codigo, g->capacidade, g->bairro);
+                	free(g);
                 }
                 scanf("%d", &o);
                 for(i = 0; i < QuantidadeBatalhas(); i++) {
-                	Batalha b = listaBatalhas()[i];
-                	if(b.codigo != 0 && b.g.codigo==o) 
-                	printf("Batalha: %d Ginasio: %s Pokemon 1: %s Pokemon 2: %s Vencedor: %s\n", b.codigo, b.g.nome, b.p1.nome, b.p2.nome, b.vencedor.nome);
+                	Batalha* b = ObterBatalhaPeloCodigo(i+1);
+                	if(b->codigo != 0 && b->g.codigo==o) 
+                	printf("Batalha: %d Ginasio: %s Pokemon 1: %s Pokemon 2: %s Vencedor: %s\n", b->codigo, b->g.nome, b->p1.nome, b->p2.nome, b->vencedor.nome);
 				}
                 break;
             case 3:
             	clear();
                 printf("Qual treinador deseja ver os resultados? (codigo)\n");
                 for(i = 0; i < QuantidadeTreinadores(); i++) {
-                	Treinador t = listaTreinadores()[i];
-                	if(t.codigo != 0) 
-                	printf("Treinador: %s, Cod: %d, Bonus ATQ: %.2f, Bonus DEF: %.2f\n", t.nome, t.codigo, t.bonusAtq, t.bonusDef);
+                	Treinador* t = ObterTreinadorPeloCodigo(i+1);
+                	if(t->codigo != 0) 
+                	printf("Treinador: %s, Cod: %d\n", t->nome, t->codigo);
+                	free(t);
 				}
 				scanf("%d", &o);
-                printf("Vitorias: %d Derrotas %d\n", ObterTreinadorPeloCodigo(1)->vitorias, ObterTreinadorPeloCodigo(1)->derrotas);
+                printf("Vitorias: %d Derrotas %d\n", ObterTreinadorPeloCodigo(o)->vitorias, ObterTreinadorPeloCodigo(o)->derrotas);
                 break;
             case 4:
             	clear();
             	printf("Qual ginasio deseja realizar a batalha? (codigo)\n");
                 for(i = 0; i < QuantidadeGinasios(); i++) {
-                	Ginasio g = listaGinasios()[i];
-                	if(g.codigo != 0)
-                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g.nome, g.codigo, g.capacidade, g.bairro);
+                	Ginasio *g = ObterGinasioPeloCodigo(i+1);
+                	if(g->codigo != 0)
+                	printf("Ginasio: %s, Cod: %d, Capacidade: %d, Bairro: %s\n", g->nome, g->codigo, g->capacidade, g->bairro);
+                	free(g);
                 }
                 int gym;
                 scanf("%d", &gym);
                 printf("Qual pokemon deseja que batalhe? (codigo)\n");
                 for(i = 0; i < QuantidadePokemon(); i++) {
-                	Pokemon p = listaPokemon()[i];
-                	if(p.codigo != 0) 
-                	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p.nome, p.codigo, p.vida, p.ataque, p.defesa, p.dono, ObterTreinadorPeloCodigo(p.dono)->nome);
+                	Pokemon *p = ObterPokemonPeloCodigo(i+1);
+                	if(p->codigo != 0) 
+                	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p->nome, p->codigo, p->vida, p->ataque, p->defesa, p->dono, ObterTreinadorPeloCodigo(p->dono)->nome);
+					free(p);
 				}
 				int pokemon1;
                 scanf("%d", &pokemon1);
                 printf("Qual pokemon deseja que batalhe? (codigo)\n");
                 for(i = 0; i < QuantidadePokemon(); i++) {
-                	Pokemon p = listaPokemon()[i];
-                	if(p.codigo != 0) 
-                	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p.nome, p.codigo, p.vida, p.ataque, p.defesa, p.dono, ObterTreinadorPeloCodigo(p.dono)->nome);
+                	Pokemon *p = ObterPokemonPeloCodigo(i+1);
+                	if(p->codigo != 0) 
+                	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p->nome, p->codigo, p->vida, p->ataque, p->defesa, p->dono, ObterTreinadorPeloCodigo(p->dono)->nome);
+					free(p);
 				}
 				int pokemon2;
                 scanf("%d", &pokemon2);
@@ -381,8 +403,10 @@ void menuBatalhas() {
                 	printf("O pokemon nao pode batalhar com ele mesmo.\n");
                 	break;
 				} else {
-					Pokemon vencedor = *RealizarBatalha(*ObterPokemonPeloCodigo(pokemon1), *ObterPokemonPeloCodigo(pokemon2), *ObterGinasioPeloCodigo(gym));
+					Pokemon* p1 = ObterPokemonPeloCodigo(pokemon1);
+					Pokemon vencedor = *RealizarBatalha(*p1, *ObterPokemonPeloCodigo(pokemon2), *ObterGinasioPeloCodigo(gym));
 					printf("Vencedor: %s\n", vencedor.nome);
+					free(p1);
 				}
                 break;
             default:

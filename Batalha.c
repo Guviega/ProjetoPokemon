@@ -25,7 +25,8 @@ bool EncerrarBatalhas() {
 }
 
 Batalha* listaBatalhas() {
-	return arrayBatalhas;
+	Batalha* temp = arrayBatalhas;
+	return temp;
 }
 
 Pokemon* RealizarBatalha(Pokemon p1, Pokemon p2, Ginasio g) {
@@ -35,19 +36,24 @@ Pokemon* RealizarBatalha(Pokemon p1, Pokemon p2, Ginasio g) {
 	float scorePokemon1 = (p1.ataque*(1+ObterTreinadorPeloCodigo(p1.dono)->bonusAtq)) + (p1.defesa*(1+ObterTreinadorPeloCodigo(p1.dono)->bonusDef)) * p1.vida / 100;
 	float scorePokemon2 = (p2.ataque*(1+ObterTreinadorPeloCodigo(p2.dono)->bonusAtq)) + (p2.defesa*(1+ObterTreinadorPeloCodigo(p2.dono)->bonusDef)) * p2.vida / 100;
 	
+	Treinador* t1 = ObterTreinadorPeloCodigo(p1.dono);
+	Treinador* t2 = ObterTreinadorPeloCodigo(p2.dono);
+	
 	if(scorePokemon1 > scorePokemon2) {
 		vencedor = &p1;
-		ObterTreinadorPeloCodigo(p1.dono)->vitorias++;
-		ObterTreinadorPeloCodigo(p2.dono)->derrotas++;
+		t1->vitorias++;
+		t2->derrotas++;
 	}
 	else if(scorePokemon2 > scorePokemon1) {
 		vencedor = &p2;
-		ObterTreinadorPeloCodigo(p2.dono)->vitorias++;
-		ObterTreinadorPeloCodigo(p1.dono)->derrotas++;	
+		t2->vitorias++;
+		t1->derrotas++;
 	}
 	else if(scorePokemon1 == scorePokemon2)
 		vencedor = NULL;
-		
+	
+	AtualizarTreinador(*t1); AtualizarTreinador(*t2);
+	free(t1); free(t2);
 		
 	int i;
 	for(i = 0; i < qtdBatalhas; i++) {
@@ -74,5 +80,7 @@ int QuantidadeBatalhas() {
 }
 
 Batalha* ObterBatalhaPeloCodigo(int codigo) {
-	return &arrayBatalhas[codigo-1];
+	Batalha* temp = malloc(sizeof(Batalha));
+	*temp = arrayBatalhas[codigo-1];
+	return temp;
 }
