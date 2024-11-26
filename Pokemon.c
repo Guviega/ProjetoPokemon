@@ -26,7 +26,7 @@ bool InicializarPokemons() {
     
     arrayPokemon[0].codigo = 1;
     strcpy(arrayPokemon[0].nome, "Pichaku");
-    arrayPokemon[0].dono = 1;
+    arrayPokemon[0].dono = 3;
     arrayPokemon[0].vida = 100;
     arrayPokemon[0].ataque = 20;
     arrayPokemon[0].defesa = 20;
@@ -44,7 +44,11 @@ bool EncerraPokemons() {
 }
 
 Pokemon* listaPokemon() {
-	Pokemon* temp = arrayPokemon;
+	Pokemon* temp = malloc(sizeof(Pokemon));
+//	printf("\n temp %x", temp);
+	temp = arrayPokemon;
+//	printf("\n temp %x", temp);
+//	printf("\n arrayPokemon %x", arrayPokemon);
 	return temp;
 }
 
@@ -87,7 +91,11 @@ Pokemon* ObterPokemonPeloCodigo(int codigo) {
 }
 
 
-bool ApagarPokemonPeloCodigo(int codigo) {
+bool ApagarPokemonPeloCodigo(int codigo)
+{
+	// remove do array.
+	// se necessario, reorganiza os dados no array
+	// se necessario, diminui o tamanho do array (realloc)
 	int indice = -1;
     
     for (int i = 0; i < qtdPokemon; i++) {

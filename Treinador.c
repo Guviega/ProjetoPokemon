@@ -35,6 +35,10 @@ bool InicializarTreinadores()
     strcpy(arrayTreinador[1].nome, "Roberto");
     arrayTreinador[1].bonusAtq = 1.1;
     arrayTreinador[1].bonusDef = 1.15;
+
+    arrayTreinador[2].codigo = 3;
+    strcpy(arrayTreinador[2].nome, "Juninho");
+
     
     return true;
 }
@@ -46,7 +50,9 @@ bool EncerraTreinadores ()
 }
 
 Treinador* listaTreinadores() {
-	return arrayTreinador;
+	Treinador* temp = malloc(sizeof(Treinador));
+	temp = arrayTreinador;
+	return temp;
 }
 
 bool SalvarTreinador(Treinador t)

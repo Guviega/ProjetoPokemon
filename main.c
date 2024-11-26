@@ -130,6 +130,22 @@ void menuTreinadores() {
 					free(t);
 				}
                 scanf("%d", &o);
+                bool podeApagar = true;
+                for(i = 0; i < QuantidadePokemon(); i++) {
+                	if(ObterPokemonPeloCodigo(i+1)->dono == o) {
+                		printf("Este treinador possui pokemons.\n");
+                		podeApagar = false;
+                		break;
+					}
+				}
+				for(i = 0; i < QuantidadeBatalhas(); i++) {
+                	if(ObterPokemonPeloCodigo(ObterBatalhaPeloCodigo(i+1)->p1.codigo)->dono == o || ObterPokemonPeloCodigo(ObterBatalhaPeloCodigo(i+1)->p2.codigo)->dono == o) {
+                		printf("Este treinador ja batalhou.\n");
+                		podeApagar = false;
+                		break;
+					}
+				}
+				if(podeApagar)
                 ApagarTreinadorPeloCodigo(o);
                 break;
             default:
@@ -212,15 +228,22 @@ void menuPokemons() {
             	//APAGAR POKEMON
             	clear();
                 printf("Qual pokemon deseja excluir? (codigo)\n");
-                array = listaPokemon();
                 for(i = 0; i < QuantidadePokemon(); i++) {
                 	Pokemon *p = ObterPokemonPeloCodigo(i+1);
                 	if(p->codigo != 0) 
                 	printf("Pokemon: %s, Cod: %d, Vida: %.2f, ATQ: %.2f, DEF: %.2f, Dono (%d) - %s\n", p->nome, p->codigo, p->vida, p->ataque, p->defesa, p->dono, ObterTreinadorPeloCodigo(p->dono)->nome);
 					free(p);
 				}
-				free(array);
                 scanf("%d", &o);
+                bool podeApagar = true;
+                for(i = 0; i < QuantidadeBatalhas(); i++) {
+                	if(ObterBatalhaPeloCodigo(i+1)->p1.codigo == o || ObterBatalhaPeloCodigo(i+1)->p2.codigo == o) {
+                		printf("Este pokemon ja batalhou.\n");
+                		podeApagar = false;
+                		break;
+					}
+				}
+				if(podeApagar)
                 ApagarPokemonPeloCodigo(o);
                 break;
             default:
@@ -355,6 +378,7 @@ void menuBatalhas() {
                 	Batalha* b = ObterBatalhaPeloCodigo(i+1);
                 	if(b->codigo != 0 && b->g.codigo==o) 
                 	printf("Batalha: %d Ginasio: %s Pokemon 1: %s Pokemon 2: %s Vencedor: %s\n", b->codigo, b->g.nome, b->p1.nome, b->p2.nome, b->vencedor.nome);
+					free(b);
 				}
                 break;
             case 3:
@@ -404,9 +428,10 @@ void menuBatalhas() {
                 	break;
 				} else {
 					Pokemon* p1 = ObterPokemonPeloCodigo(pokemon1);
-					Pokemon vencedor = *RealizarBatalha(*p1, *ObterPokemonPeloCodigo(pokemon2), *ObterGinasioPeloCodigo(gym));
-					printf("Vencedor: %s\n", vencedor.nome);
+					Pokemon* vencedor = RealizarBatalha(*p1, *ObterPokemonPeloCodigo(pokemon2), *ObterGinasioPeloCodigo(gym));
+					printf("Vencedor: %s\n", vencedor->nome);
 					free(p1);
+					//free(vencedor);
 				}
                 break;
             default:
@@ -416,7 +441,8 @@ void menuBatalhas() {
 }
 
 void clear() {
-    int contador;
-    for (contador = 0; contador < 50; contador++)
+    int* contador = malloc(sizeof(int));
+    for (*contador = 0; *contador < 50; (*contador)++)
 	printf("\n");
+	free(contador);
 }
